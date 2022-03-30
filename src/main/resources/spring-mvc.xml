@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+">
+
+    <!--组件扫描-->
+    <context:component-scan base-package="cn.dsscm.controller"/>
+
+    <!--mvc注解驱动，以使得访问路径与方法的匹配可以通过注解配置-->
+    <mvc:annotation-driven/>
+
+    <!--开放静态资源,如html,css,js,images可以访问-->
+    <mvc:default-servlet-handler/>
+
+    <!--视图解析器-->
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!--配置权限拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--配置对哪些资源执行拦截操作-->
+            <mvc:mapping path="/*/list"/>
+            <!--配置哪些资源排除拦截操作-->
+            <mvc:exclude-mapping path="/user/login"/>
+            <bean class="cn.dsscm.interceptor.UserInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!-- 配置MultipartResolver，用于上传文件，使用spring的CommonsMultipartResolver -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="maxUploadSize" value="5000000" />
+        <property name="defaultEncoding" value="UTF-8" />
+    </bean>
+</beans>
