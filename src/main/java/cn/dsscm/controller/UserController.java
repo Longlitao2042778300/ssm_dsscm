@@ -93,7 +93,9 @@ public class UserController {
     @RequestMapping(value = "/roleList.json", method = RequestMethod.GET)
     @ResponseBody
     public List<Role> getRoleList() {
-
+        for (Role role : roleService.getRoleList()) {
+            System.out.println(role);
+        }
         //获取用户权限
         return roleService.getRoleList();
     }

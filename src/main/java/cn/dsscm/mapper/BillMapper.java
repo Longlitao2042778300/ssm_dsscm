@@ -15,17 +15,13 @@ public interface BillMapper {
 
     @Select("<script>" +
                 "select b.*,p.proName as providerName from tb_bill b,tb_provider p where b.providerId=p.id" +
-                "<trim prefixOverrides='and'>" +
-                    "<if test='productName != null'> and productName like concat('%',#{productName},'%')</if>" +
-                    "<if test='isPayment != null'> and isPayment=#{isPayment}</if>" +
-                    "<if test='providerId != null'> and providerId=#{providerId}</if>" +
+                "<trim>" +
+                    "<if test='productName != null and productName !=\"\"'> and b.productName like concat('%',#{productName},'%')</if>" +
+                    "<if test='isPayment != null'> and b.isPayment=#{isPayment}</if>" +
+                    "<if test='providerId != null'> and b.providerId=#{providerId}</if>" +
                 "</trim>" +
                 "order by creationDate DESC" +
             "</script>")
-    /*@Results(
-            @Result(javaType = String.class,column = "providerId",property = "providerName",
-            one = @One(select = "cn.dsscm.mapper.ProviderMapper.findProviderNameById"))
-    )*/
     List<Bill> findBills(@Param("productName") String queryProductName,@Param("isPayment") Integer queryIsPayment,@Param("providerId") Integer queryProviderId);
 
 

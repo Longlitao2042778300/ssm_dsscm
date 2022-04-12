@@ -156,5 +156,4 @@
 <script type="text/javascript">
 	$(".sidebar-wrapper .nav li:eq(5)").addClass("active");
 </script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath }/statics/js/useradd.js"></script>
+<script src="${pageContext.request.contextPath}/statics/js/useradd.js"></script>

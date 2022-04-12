@@ -37,14 +37,9 @@ $(function(){
 	}else{
 		a_idPicPath.next().html(errorinfo.val());
 	}
-	if(errorinfo_wp.val() == null || errorinfo_wp.val() == ""){
-		a_workPicPath.next().html("* 上传大小不能超过500K * 上传文件类型必须为：jpg、jpeg、png、pneg");
-	}else{
-		a_workPicPath.next().html(errorinfo_wp.val());
-	}
-	
+
 	$.ajax({
-		type:"get",//请求类型
+		type:"GET",//请求类型
 		url:path+"/user/roleList.json",//请求的url
 		data:{},//请求参数
 		dataType:"json",//ajax接口（请求url）返回的数据类型
